@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tunniplaan · Techno TLN Kesklinn</title>
+  <meta name="theme-color" content="#3e1b86" />
+  <link rel="icon" href="/tahvel-tunniplaan/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/tahvel-tunniplaan/apple-touch-icon.png" />
+  <script>
+    // Apply the theme before the app loads so the page does not flash another one.
+    // The theme's background colour is remembered from the last visit (tahvel.themeColor, written by
+    // ThemeSelect.vue) so the browser bar and page background are right before the stylesheet loads.
+    try {
+      // no saved theme: the automatic pair (tahvel.autoTheme). By sunrise and sunset when that is picked (the last
+      // known times, off by a few minutes at most), else by the device's preference until the light sensor says.
+      const auto = JSON.parse(localStorage.getItem('tahvel.autoTheme') || '{}');
+      const now = new Date().toTimeString().slice(0, 5);
+      const dark = auto.source === 'sun' && auto.sun ? now < auto.sun.rise || now >= auto.sun.set : matchMedia('(prefers-color-scheme: dark)').matches;
+      const t = localStorage.getItem('tahvel.theme') || (dark ? auto.dark || 'techno-dark' : auto.light || 'techno');
+      document.documentElement.dataset.theme = t;
+      const saved = JSON.parse(localStorage.getItem('tahvel.themeColor') || 'null');
+      if (saved?.theme === t) {
+        document.querySelector('meta[name="theme-color"]').content = saved.color;
+        document.documentElement.style.backgroundColor = saved.color;
+      }
+    } catch {}
+  </script>
+  <script type="module" crossorigin src="/tahvel-tunniplaan/assets/index-BPD0Ctw1.js"></script>
+  <link rel="stylesheet" crossorigin href="/tahvel-tunniplaan/assets/index-BFus1gdm.css">
+<link rel="manifest" href="/tahvel-tunniplaan/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/tahvel-tunniplaan/registerSW.js"></script></head>
+<body>
+  <div id="app"></div>
+  
+
+
+</body>
+</html>
