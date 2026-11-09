@@ -1,0 +1,35 @@
+{
+  "name": "tahvel-tunniplaan",
+  "private": true,
+  "scripts": {
+    "fetch": "bun scripts/fetch-timetable.ts",
+    "themes": "bun scripts/gen-themes.ts",
+    "worker:deploy": "bunx wrangler deploy -c worker/wrangler.jsonc",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --base /tahvel-tunniplaan/"
+  },
+  "devDependencies": {
+    "@shikijs/themes": "^4.4.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/bun": "latest",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "daisyui": "^5.7.46",
+    "luxon": "^3.7.2",
+    "tailwindcss": "^4.3.3",
+    "vite": "^7.1.12",
+    "vite-plugin-pwa": "^1.3.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@fontsource-variable/onest": "^5.3.1",
+    "@lucide/vue": "^1.48.0",
+    "pinia": "^4.0.3",
+    "qrcode.vue": "^3.11.0",
+    "suncalc": "^2.0.2",
+    "vue": "^3.5.22",
+    "vue-router": "^5.3.1"
+  }
+}

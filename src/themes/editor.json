@@ -1,0 +1,242 @@
+[
+  {
+    "id": "dark-plus",
+    "label": "VS Code Dark",
+    "dark": true
+  },
+  {
+    "id": "light-plus",
+    "label": "VS Code Light",
+    "dark": false
+  },
+  {
+    "id": "github-dark",
+    "label": "GitHub Dark",
+    "dark": true
+  },
+  {
+    "id": "github-dark-dimmed",
+    "label": "GitHub Dark Dimmed",
+    "dark": true
+  },
+  {
+    "id": "github-light",
+    "label": "GitHub Light",
+    "dark": false
+  },
+  {
+    "id": "one-dark-pro",
+    "label": "One Dark Pro",
+    "dark": true
+  },
+  {
+    "id": "one-light",
+    "label": "One Light",
+    "dark": false
+  },
+  {
+    "id": "monokai",
+    "label": "Monokai",
+    "dark": true
+  },
+  {
+    "id": "darcula",
+    "label": "Darcula",
+    "dark": true
+  },
+  {
+    "id": "jetbrains-dark",
+    "label": "JetBrains Dark",
+    "dark": true
+  },
+  {
+    "id": "intellij-light",
+    "label": "IntelliJ Light",
+    "dark": false
+  },
+  {
+    "id": "nord-dark",
+    "label": "Nord",
+    "dark": true
+  },
+  {
+    "id": "nord-light",
+    "label": "Nord Light",
+    "dark": false
+  },
+  {
+    "id": "solarized-dark",
+    "label": "Solarized Dark",
+    "dark": true
+  },
+  {
+    "id": "solarized-light",
+    "label": "Solarized Light",
+    "dark": false
+  },
+  {
+    "id": "gruvbox-dark-hard",
+    "label": "Gruvbox Dark Hard",
+    "dark": true
+  },
+  {
+    "id": "gruvbox-dark-medium",
+    "label": "Gruvbox Dark",
+    "dark": true
+  },
+  {
+    "id": "gruvbox-dark-soft",
+    "label": "Gruvbox Dark Soft",
+    "dark": true
+  },
+  {
+    "id": "gruvbox-light-hard",
+    "label": "Gruvbox Light Hard",
+    "dark": false
+  },
+  {
+    "id": "gruvbox-light-medium",
+    "label": "Gruvbox Light",
+    "dark": false
+  },
+  {
+    "id": "gruvbox-light-soft",
+    "label": "Gruvbox Light Soft",
+    "dark": false
+  },
+  {
+    "id": "catppuccin-latte",
+    "label": "Catppuccin Latte",
+    "dark": false
+  },
+  {
+    "id": "catppuccin-frappe",
+    "label": "Catppuccin Frappé",
+    "dark": true
+  },
+  {
+    "id": "catppuccin-macchiato",
+    "label": "Catppuccin Macchiato",
+    "dark": true
+  },
+  {
+    "id": "catppuccin-mocha",
+    "label": "Catppuccin Mocha",
+    "dark": true
+  },
+  {
+    "id": "tokyo-night",
+    "label": "Tokyo Night",
+    "dark": true
+  },
+  {
+    "id": "rose-pine",
+    "label": "Rosé Pine",
+    "dark": true
+  },
+  {
+    "id": "rose-pine-moon",
+    "label": "Rosé Pine Moon",
+    "dark": true
+  },
+  {
+    "id": "rose-pine-dawn",
+    "label": "Rosé Pine Dawn",
+    "dark": false
+  },
+  {
+    "id": "everforest-dark",
+    "label": "Everforest Dark",
+    "dark": true
+  },
+  {
+    "id": "everforest-light",
+    "label": "Everforest Light",
+    "dark": false
+  },
+  {
+    "id": "kanagawa-wave",
+    "label": "Kanagawa Wave",
+    "dark": true
+  },
+  {
+    "id": "kanagawa-dragon",
+    "label": "Kanagawa Dragon",
+    "dark": true
+  },
+  {
+    "id": "kanagawa-lotus",
+    "label": "Kanagawa Lotus",
+    "dark": false
+  },
+  {
+    "id": "ayu-dark",
+    "label": "Ayu Dark",
+    "dark": true
+  },
+  {
+    "id": "ayu-mirage",
+    "label": "Ayu Mirage",
+    "dark": true
+  },
+  {
+    "id": "ayu-light",
+    "label": "Ayu Light",
+    "dark": false
+  },
+  {
+    "id": "material",
+    "label": "Material",
+    "dark": true
+  },
+  {
+    "id": "material-ocean",
+    "label": "Material Ocean",
+    "dark": true
+  },
+  {
+    "id": "material-palenight",
+    "label": "Material Palenight",
+    "dark": true
+  },
+  {
+    "id": "material-lighter",
+    "label": "Material Lighter",
+    "dark": false
+  },
+  {
+    "id": "night-owl",
+    "label": "Night Owl",
+    "dark": true
+  },
+  {
+    "id": "night-owl-light",
+    "label": "Night Owl Light",
+    "dark": false
+  },
+  {
+    "id": "vitesse-dark",
+    "label": "Vitesse Dark",
+    "dark": true
+  },
+  {
+    "id": "vitesse-light",
+    "label": "Vitesse Light",
+    "dark": false
+  },
+  {
+    "id": "synthwave-84",
+    "label": "Synthwave '84",
+    "dark": true
+  },
+  {
+    "id": "poimandres",
+    "label": "Poimandres",
+    "dark": true
+  },
+  {
+    "id": "horizon",
+    "label": "Horizon",
+    "dark": true
+  }
+]

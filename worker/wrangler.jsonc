@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  // Relays the deploy workflow's Edupage requests. Edupage's school server drops connections
+  // from some GitHub Actions (Azure) IPs, but answers Cloudflare. Deploy: bun run worker:deploy
+  "name": "tahvel-edupage-proxy",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-20",
+  "observability": { "enabled": true }
+}
