@@ -19,6 +19,40 @@ const REFRESH_MS = 10 * 60_000;
 const RELOAD_HOUR = 4; // a quiet hour for the nightly reload
 const ACTIVITY = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
 
+/**
+ * A screen can be set up from its address, so it needs no hands on the settings:
+ *   ?kiosk=1&linnak=K       kiosk mode on, for Kesklinn (kiosk=0 turns it off)
+ *   ?kiosk=mustamae         the same in one: a campus letter or name turns kiosk mode on for it
+ * `campus` works for `linnak`. Read from the address (before the #) or from the route (after it), then
+ * dropped from it, since the setting is kept in the browser from there on.
+ */
+const ON = ['1', 'jah', 'on', 'true'];
+const OFF = ['0', 'ei', 'off', 'false'];
+const CAMPUS_NAMES = { kesklinn: 'K', mustamae: 'M', 'mustamäe': 'M', jarve: 'J', 'järve': 'J', lasnamae: 'L', 'lasnamäe': 'L' };
+const campusFrom = (v) => {
+  const s = String(v ?? '').trim().toLowerCase();
+  return CAMPUS_NAMES[s] ?? (/^[kmjl]$/.test(s) ? s.toUpperCase() : null);
+};
+function applyAddress(kiosk) {
+  const search = new URLSearchParams(location.search);
+  const [hashPath, hashQuery = ''] = location.hash.split('?');
+  const hash = new URLSearchParams(hashQuery);
+  const get = (key) => hash.get(key) ?? search.get(key);
+  const mode = get('kiosk');
+  const campus = campusFrom(get('linnak') ?? get('campus')) ?? campusFrom(mode);
+  if (mode === null && !campus) return;
+  if (campus) kiosk.settings.campus = campus;
+  const value = String(mode ?? '').toLowerCase();
+  if (ON.includes(value) || campusFrom(mode)) kiosk.settings.enabled = true;
+  else if (OFF.includes(value)) kiosk.settings.enabled = false;
+  for (const key of ['kiosk', 'linnak', 'campus']) {
+    search.delete(key);
+    hash.delete(key);
+  }
+  const keep = (q) => (q.toString() ? `?${q}` : '');
+  history.replaceState(history.state, '', `${location.pathname}${keep(search)}${hashPath}${keep(hash)}`);
+}
+
 export function useKioskRuntime() {
   const kiosk = useKioskStore();
   const timetable = useTimetableStore();
@@ -27,6 +61,7 @@ export function useKioskRuntime() {
   const route = useRoute();
   let idle, refresh, reload;
   let lastActivity = Date.now();
+  applyAddress(kiosk); // before the watch below starts (or skips) the kiosk
 
   /** Whether an idle kiosk should show the lunch menu: around its campus's lunch break, on a day with lunch. */
   function lunchTime() {

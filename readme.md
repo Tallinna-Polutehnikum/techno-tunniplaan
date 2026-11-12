@@ -13,7 +13,9 @@ per day, time running down with the lesson start and end times marked), and free
 time and room filters in a sidebar of big buttons. Groups are picked by starting year then code, rooms
 by building then number, teachers from a surname-letter rail, so nothing needs a keyboard. A kiosk
 returns to its home screen after 90 s untouched, re-reads the data every 10 minutes and reloads at
-04:00; holding the logo for 2 s opens settings.
+04:00; holding the logo for 2 s opens settings. A screen can also be set up from its address:
+`?kiosk=1&linnak=K` turns kiosk mode on for Kesklinn, `?kiosk=mustamae` does both in one, and
+`?kiosk=0` turns it off. The setting is then kept in the browser.
 
 Every timetable has its own link: `#/plaan/<group|teacher|room>/<name>`, with `?vaade=tana` for the
 day, `?vaade=paev&paev=2` for one weekday and `?nadal=2026-10-05` for a week other than the current
