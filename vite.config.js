@@ -45,6 +45,8 @@ export default defineConfig(({ command }) => {
         },
       }),
     ],
-    base: command === 'build' ? '/tahvel-tunniplaan/' : '/'
+    // The site's path: / on the school's own domain (tunniplaan.techno.ee), /<repo>/ on a fork's github.io
+    // page. The deploy workflow sets BASE_PATH; a local build defaults to the domain's /.
+    base: command === 'build' ? (process.env.BASE_PATH || '/') : '/'
   }
 });
