@@ -17,23 +17,36 @@ import { useTimetableStore } from '../stores/timetable';
 const store = useTimetableStore();
 const route = useRoute();
 const router = useRouter();
-onMounted(() => (store.mode = 'timetable'));
+onMounted(() => {
+  store.mode = 'timetable';
+  // back on the tab with Täna on: free rooms moves the week and day it shares, so find the next lessons again
+  if (route.name === 'timetable' && store.linkState?.display === 'today') store.toggle('today');
+});
+
+// The address this view last wrote itself, which is no link being opened: taking it for one would cancel
+// a jump to the next lessons still loading its week (a search picked on a weekend opened on the week).
+let written = null;
 
 // A #/plaan/... link opens what it names, once the snapshot it has to be looked up in has loaded.
 watch(
   [() => store.index, () => route.fullPath],
-  () => route.name === 'timetable-for' && store.index && store.openLink(linkFrom(route)),
+  () => route.name === 'timetable-for' && store.index && route.fullPath !== written && store.openLink(linkFrom(route)),
   { immediate: true },
 );
 
-// The address bar then follows what is on screen, so it stays a link to this view and can be copied.
-// Replacing only on a real difference is also what keeps this from looping with the watch above.
+// The address bar then follows what is on screen, so it stays a link to this view and can be copied
+// (also on coming back to the tab, whose link carries no selection). Replacing only on a real
+// difference is also what keeps this from looping with the watch above.
 watch(
   () => store.linkState,
   (state) => {
     const to = state ? linkTo(state) : { name: 'timetable' };
-    if (router.resolve(to).fullPath !== route.fullPath) router.replace(to);
+    const path = router.resolve(to).fullPath;
+    if (path === route.fullPath) return;
+    written = path;
+    router.replace(to);
   },
+  { immediate: route.name === 'timetable' },
 );
 </script>
 <template>
