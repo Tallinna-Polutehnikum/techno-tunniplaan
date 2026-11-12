@@ -34,6 +34,9 @@ jobs:
         run: bun run fetch
 
       - name: Build project
+        # The school's repository is served at the root of tunniplaan.techno.ee; a fork at <user>.github.io/<repo>/
+        env:
+          BASE_PATH: ${{ github.repository == 'Tallinna-Polutehnikum/techno-tunniplaan' && '/' || format('/{0}/', github.event.repository.name) }}
         run: bun run build
 
       - name: Upload production-ready build files
@@ -60,3 +63,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          # this action replaces the whole branch, so the custom domain's CNAME file has to be written each time
+          # (only for the school's repository: a fork claiming the domain would take it over)
+          cname: ${{ github.repository == 'Tallinna-Polutehnikum/techno-tunniplaan' && 'tunniplaan.techno.ee' || '' }}

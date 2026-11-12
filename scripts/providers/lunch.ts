@@ -122,7 +122,7 @@ function dailyDay(d: Row): LunchDay | null {
 export async function fetchLunch(url: string, fromDate: string): Promise<Partial<Record<Campus, CampusLunch>>> {
   const res = await fetch(url, {
     signal: AbortSignal.timeout(60_000),
-    headers: { "user-agent": "tahvel-tunniplaan (+https://kasparsu.github.io/tahvel-tunniplaan/)" },
+    headers: { "user-agent": "tahvel-tunniplaan (+https://tunniplaan.techno.ee/)" },
   });
   if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
   const body = (await res.json()) as Row;

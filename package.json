@@ -7,7 +7,7 @@
     "worker:deploy": "bunx wrangler deploy -c worker/wrangler.jsonc",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --base /tahvel-tunniplaan/"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@shikijs/themes": "^4.4.3",
