@@ -118,6 +118,47 @@ function dailyDay(d: Row): LunchDay | null {
   return date && sections.length ? { date, sections } : null;
 }
 
+/**
+ * Kesklinn's and Lasnamäe's menus come from a spreadsheet, passed on as a day's flat list of rows: a
+ * row with a label ("Lõunasöök", "Taimetoit", "Valik I") is a meal to pick, and the unlabelled rows
+ * after it go with it. Several labelled rows in a row share the unlabelled ones after them (the sides
+ * of two main dishes), which a meal on its own keeps for itself (a soup and its dessert). Allergens are
+ * the letters in a dish's name, as the kitchen writes them.
+ */
+function excelDay(d: Row): LunchDay | null {
+  const date = clean(d.date);
+  const rows = (d.rows ?? []).filter((r: Row) => clean(r.name));
+  const label = (r: Row) => clean(r.label).replace(/\s+/g, " ");
+  const sections: LunchSection[] = [];
+  let run: LunchSection[] = []; // the labelled rows just read
+  let extras: Dish[] | null = null; // where unlabelled rows go now
+  for (const r of rows) {
+    if (label(r)) {
+      if (extras) run = []; // a new meal after the previous one's extras
+      extras = null;
+      const meal = { title: label(r), choice: true, dishes: [dish(r)] };
+      sections.push(meal);
+      run.push(meal);
+      continue;
+    }
+    if (!extras) {
+      if (run.length === 1) extras = run[0].dishes;
+      else {
+        const shared = { title: run.length ? `${run.map((m) => m.title).join(" ja ")} juurde` : "Koolilõuna", choice: false, dishes: [] as Dish[] };
+        sections.push(shared);
+        extras = shared.dishes;
+      }
+    }
+    extras.push(dish(r));
+  }
+  // one shared list after every meal is what goes with all of them
+  const sharedLists = sections.filter((x) => !x.choice);
+  if (sharedLists.length === 1 && sections.at(-1) === sharedLists[0] && sections.filter((x) => x.choice).length > 1) {
+    sharedLists[0].title = "Kõigi valikute juurde";
+  }
+  return date && sections.length ? { date, sections } : null;
+}
+
 /** Every campus's menus from `fromDate` on, by the letter the app knows the campus by. */
 export async function fetchLunch(url: string, fromDate: string): Promise<Partial<Record<Campus, CampusLunch>>> {
   const res = await fetch(url, {
@@ -143,9 +184,9 @@ export async function fetchLunch(url: string, fromDate: string): Promise<Partial
       if (serves) notes.add(`Koolilõunat pakutakse kell ${serves}.`);
       for (const text of [week.campus_notes, menu.notes]) if (clean(text)) notes.add(clean(text));
 
-      // the daily provider dates its own days; the other numbers them from the Monday
+      // the daily and spreadsheet providers date their own days; the other numbers them from the Monday
       (menu.days ?? []).forEach((d: Row, i: number) => {
-        const made = menu.provider === "daily" ? dailyDay(d) : day(d, addDays(monday, i));
+        const made = menu.provider === "daily" ? dailyDay(d) : menu.provider === "excel" ? excelDay(d) : day(d, addDays(monday, i));
         if (made && made.date >= fromDate) days.set(made.date, made);
       });
     }
